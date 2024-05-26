@@ -1,5 +1,6 @@
 // readline modul core
 const fs = require('fs');
+const validator = require('validator');
 
 // cek folder
 const dirPath = 'data'
@@ -25,8 +26,21 @@ const saveContact = (name, email, noHp) => {
         return false;
     }
 
+    // check email
+    if (`${email}`) {
+        if (!validator.isEmail(`${email}`)) {
+            console.log('Email not valid');
+            return false;
+        }
+    }
+
+    // check no Hp
+    if (!validator.isMobilePhone(`${noHp}`, 'id-ID')) {
+        console.log('Number Phone not valid');
+        return false;
+    }
+
     contacts.push(contact);
-    console.log(contacts);
     fs.writeFileSync('data/contacts.json', JSON.stringify(contacts));
     console.log('terimakasih sudah memasukan')
 
