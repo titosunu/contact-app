@@ -1,11 +1,30 @@
-const contact = require('./contact')
+// argument from commandline
+const yargs = require('yargs');
+const contacts = require('./contact');
 
-const main = async () => {
-    const name = await contact.questionContact('Masukan Nama Anda: ');
-    const email = await contact.questionContact('Masukan Email Anda: ');
-    const noHp = await contact.questionContact('Masukan No Hp Anda: ');
+yargs.command({
+    command: 'add',
+    describe: 'Create New Contact',
+    buider: {
+        name: {
+            describe: 'Full Name',
+            demandOption: true,
+            type: 'string',
+        },
+        email: {
+            describe: 'Email',
+            demandOption: false,
+            type: 'string',
+        },
+        noHp: {
+            describe: 'Nomor Hp',
+            demandOption: true,
+            type: 'string',
+        }
+    },
+    handler(argv) {
+        contacts.saveContact(argv.name, argv.email, argv.noHp);
+    }
+});
 
-    contact.saveContact(name, email, noHp);
-}
-
-main();
+yargs.parse();

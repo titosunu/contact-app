@@ -1,0 +1,15 @@
+{
+  "name": "latian",
+  "version": "1.0.0",
+  "description": "Selamat datang di repositori **JavaScript Daily Learning**! Repositori ini adalah tempat saya mendokumentasikan perjalanan harian saya dalam mempelajari JavaScript. Setiap hari, saya akan menambahkan catatan, kode, dan proyek kecil yang saya kerjakan.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "yargs": "^17.7.2"
+  }
+}
