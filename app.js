@@ -1,11 +1,15 @@
 const express = require('express')
-var expressLayouts = require('express-ejs-layouts');
+const expressLayouts = require('express-ejs-layouts');
+const { loadContact, findContact } = require('./utils/contact');
 const app = express()
 const port = 3000
 
 // use template engines
 app.set('view engine', 'ejs');
 app.use(expressLayouts);
+
+//built in middleware untuk
+app.use(express.static('public'));
 
 // route
 app.get('/', (req, res) => {
@@ -34,11 +38,17 @@ app.get('/about', (req, res) => {
 });
 
 app.get('/contact', (req, res) => {
-    res.render('contact', { layout:'layouts/main', title: 'Contact Page' });
+    const contacts = loadContact();
+    res.render('contact', { layout:'layouts/main', title: 'Contact Page', contacts});
+});
+
+app.get('/contact/:name', (req, res) => {
+    const contact = findContact(req.params.name);
+    res.render('detail', { layout:'layouts/main', title: 'Contact Detail Page', contact});
 });
 
 // middleware
-app.use('/', (req, res) => {
+app.use((req, res) => {
     res.status(404);
     res.send('<h1>404 not found</h1>')
 });
