@@ -1,0 +1,12 @@
+    <h1>Hi there, i'am <%= name %> 🚀</h1>
+    <h4>Contact</h4>
+    <% if ( person.length < 1 ) { %>
+        <p>Contact is null</p>
+    <% } %>
+    <% person.forEach(p => { %>
+        <ul>
+            <li>Name : <%= p.name %></li>
+            <li>Email : <%= p.email %></li>
+            <li>Age : <%= p.age %></li>
+        </ul>
+    <% }) %>

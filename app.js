@@ -1,72 +1,49 @@
-// argument from commandline
-const yargs = require('yargs');
-const contacts = require('./contact');
+const express = require('express')
+var expressLayouts = require('express-ejs-layouts');
+const app = express()
+const port = 3000
 
-yargs.command({
-    command: 'add',
-    describe: 'Create New Contact',
-    buider: {
-        name: {
-            describe: 'Full Name',
-            demandOption: true,
-            type: 'string',
+// use template engines
+app.set('view engine', 'ejs');
+app.use(expressLayouts);
+
+// route
+app.get('/', (req, res) => {
+    const person = [
+        {
+            name: 'Pratito',
+            age: 21,
+            email: 'titosunu2001@gmail.com',
         },
-        email: {
-            describe: 'Email',
-            demandOption: false,
-            type: 'string',
+        {
+            name: 'adrian',
+            age: 20,
+            email: 'adrian.lutfi@gmail.com',
         },
-        noHp: {
-            describe: 'Nomor Hp',
-            demandOption: true,
-            type: 'string',
+        {
+            name: 'titus',
+            age: 24,
+            email: 'titus@gmail.com',
         }
-    },
-    handler(argv) {
-        contacts.saveContact(argv.name, argv.email, argv.noHp);
-    }
-}).
-demandCommand();
-
-// show contact
-yargs.command({
-    command: 'list',
-    describe: 'Show all Contact',
-    handler() {
-        contacts.listContact();
-    }
+    ]
+    res.render('index', { layout:'layouts/main', name: 'Pratito', title: 'Home Page', person});
 });
 
-// show detail contact
-yargs.command({
-    command: 'detail',
-    describe: 'Show detail Contact',
-    builder: {
-        name: {
-            describe: 'Full Name',
-            demandOption: true,
-            type: 'string',
-        },
-    },
-    handler(argv) {
-        contacts.detailContact(argv.name);
-    }
+app.get('/about', (req, res) => {
+    res.render('about', { layout:'layouts/main', title: 'About Page' });
 });
 
-// remove contact
-yargs.command({
-    command: 'delete',
-    describe: 'Remove Contact',
-    builder: {
-        name: {
-            describe: 'Full Name',
-            demandOption: true,
-            type: 'string',
-        },
-    },
-    handler(argv) {
-        contacts.removeContact(argv.name);
-    }
+app.get('/contact', (req, res) => {
+    res.render('contact', { layout:'layouts/main', title: 'Contact Page' });
 });
 
-yargs.parse();
+// middleware
+app.use('/', (req, res) => {
+    res.status(404);
+    res.send('<h1>404 not found</h1>')
+});
+
+// port
+app.listen(port, () => {
+    console.log(`Example app listening on port ${port}`)
+});
