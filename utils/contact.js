@@ -19,10 +19,28 @@ const loadContact = () => {
     return contacts;
 }
 
+// detail contact
 const findContact = (n) => {
     const contacts = loadContact();
-    const contact = contacts.find((c) => c.name.toLowerCase() === n.toLowerCase());
+    const contact = contacts.find((c) => c.firstName.toLowerCase() === n.toLowerCase());
     return contact;
 }
 
-module.exports = { loadContact, findContact };
+// add contact
+const saveContacts = (c) => {
+    fs.writeFileSync('data/contacts.json', JSON.stringify(c));
+}
+
+const addContact = (reqBody) => {
+    contacts = loadContact();
+    contacts.push(reqBody);
+    saveContacts(contacts);
+};
+
+// check duplicate
+const checkDuplicate = (v) => {
+    const contacts = loadContact();
+    return contacts.find((c) => c.firstName === v);
+}
+
+module.exports = { loadContact, findContact, addContact, checkDuplicate };
