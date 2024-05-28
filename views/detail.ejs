@@ -10,7 +10,7 @@
         <p class="lead">Email : <strong><%= contact.email %></strong></p>
         <p class="lead">Address : <strong><%= contact.address %></strong></p>
         <a href="/contact/delete/<%= contact.firstName %>" class="badge bg-danger" style="text-decoration: none;" onclick="return confirm('Sure want delete to this Contact?')">Delete</a>
-        <a href="/contact/delete/<%= contact.firstName %>" class="badge bg-warning text-dark" style="text-decoration: none;">Edit</a>
+        <a href="/contact/edit/<%= contact.firstName %>" class="badge bg-warning text-dark" style="text-decoration: none;">Edit</a>
         <a href="/contact" class="float-end">Back to List Contacts &raquo;</a>
     </div>
     <% } %>

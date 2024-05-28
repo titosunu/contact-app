@@ -50,4 +50,14 @@ const deleteContact = (v) => {
     saveContacts(filterContact);
 }
 
-module.exports = { loadContact, findContact, addContact, checkDuplicate, deleteContact };
+// edit contact
+const editContact = (v) => {
+    const contacts = loadContact();
+    // remove old contact
+    const filterContact = contacts.filter((contact) => contact.firstName !== v.oldName);
+    delete v.oldName;
+    filterContact.push(v);
+    saveContacts(filterContact);
+}
+
+module.exports = { loadContact, findContact, addContact, checkDuplicate, deleteContact, editContact };

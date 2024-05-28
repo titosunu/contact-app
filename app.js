@@ -1,6 +1,6 @@
 const express = require('express')
 const expressLayouts = require('express-ejs-layouts');
-const { loadContact, findContact, addContact, checkDuplicate, deleteContact } = require('./utils/contact');
+const { loadContact, findContact, addContact, checkDuplicate, deleteContact, editContact } = require('./utils/contact');
 const { validationResult, check, body } = require('express-validator');
 
 const session = require('express-session');
@@ -30,23 +30,28 @@ app.use(flash());
 
 
 // route ~~
+// home
 app.get('/', (req, res) => {
     res.render('index', { layout:'layouts/main', title: 'Home Page', route: '/'});
 });
 
+// about
 app.get('/about', (req, res) => {
     res.render('about', { layout:'layouts/main', title: 'About Page', route: '/about' });
 });
 
+// list contact
 app.get('/contact', (req, res) => {
     const contacts = loadContact();
     res.render('contact', { layout:'layouts/main', title: 'Contact Page', contacts, msg: req.flash('msg'), route: '/contact'});
 });
 
+// add form contact
 app.get('/contact/add', (req, res) => {
     res.render('add-contact', { layout:'layouts/main', title: 'Contact Page', route: '/contact'});
 });
 
+// add contact / post
 app.post('/contact', [
         body('firstName').custom((value) => {
             const duplicate = checkDuplicate(value);
@@ -69,6 +74,7 @@ app.post('/contact', [
     }
 });
 
+// delete contact 
 app.get('/contact/delete/:name', (req, res) => {
     const contact = findContact(req.params.name);
     if (!contact) {
@@ -81,6 +87,36 @@ app.get('/contact/delete/:name', (req, res) => {
     }
 });
 
+// form edit contact
+app.get('/contact/edit/:name', (req, res) => {
+    const contact = findContact(req.params.name);
+    res.render('edit-contact', { layout:'layouts/main', title: 'Contact Page', route: '/contact', contact});
+});
+
+// edit contact
+app.post('/contact/update', [
+    body('firstName').custom((value, {req}) => {
+        const duplicate = checkDuplicate(value);
+        if (value !== req.body.oldName && duplicate) {
+            throw new Error('Name Contact is already in use!');
+        }
+        return true
+    }),
+    check('email', 'Email not valid').isEmail(),
+    check('number', 'Number Phone not valid').isMobilePhone('id-ID')
+], (req, res) => {
+    const result = validationResult(req);
+    if(result.isEmpty()) {
+        editContact(req.body);
+        // flash
+        req.flash('msg', 'New Contact has been edited')
+        res.redirect('/contact');
+    } else {
+        res.render('edit-contact', { layout:'layouts/main', title: 'Contact Page', contact: req.body, route: '/contact', err: result.array(), });
+    }
+});
+
+// detail contact
 app.get('/contact/:name', (req, res) => {
     const contact = findContact(req.params.name);
     res.render('detail', { layout:'layouts/main', title: 'Contact Page', contact, route: '/contact'});

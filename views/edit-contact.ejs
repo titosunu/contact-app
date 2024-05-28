@@ -1,0 +1,47 @@
+<div class="container">
+    <div class="py-5 text-center">
+        <h2>Edit Contact</h2>
+    </div>
+    <div class="row g-5">
+        <div class="col-md-12 col-lg-12">
+            <% if (typeof err != 'undefined') { %>
+                <div class="alert alert-danger" role="alert">
+                    <% err.forEach(e => { %>
+                        ❗(<%= e.msg %>)
+                    <% }) %>
+                </div>
+            <% } %>
+            <form method="post" action="/contact/update">
+                <input type="hidden" name="oldName" value="<%= contact.oldName || contact.firstName %>">
+                <div class="row g-3">
+                    <div class="col-sm-6">
+                        <label for="firstName" class="form-label">First name</label>
+                        <input type="text" class="form-control" id="firstName" name="firstName" value="<%= contact.firstName %>" required>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <label for="lastName" class="form-label">Last name</label>
+                        <input type="text" class="form-control" id="lastName" name="lastName" value="<%= contact.lastName %>" required>
+                    </div>
+
+                    <div class="col-12">
+                        <label for="email" class="form-label">Email <span class="text-body-secondary">(Optional)</span></label>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="you@example.com" value="<%= contact.email %>">
+                    </div>
+
+                    <div class="col-12">
+                        <label for="number" class="form-label">Number</label>
+                        <input type="text" class="form-control" id="number" name="number" placeholder="+6281283140" value="<%= contact.number %>">
+                    </div>
+
+                    <div class="col-12">
+                        <label for="address" class="form-label">Address <span class="text-body-secondary">(Optional)</span></label>
+                        <input type="text" class="form-control" id="address" name="address" placeholder="1234 Main St" value="<%= contact.address %>">
+                    </div>
+
+                    <button class="btn btn-warning" type="submit">Edit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
