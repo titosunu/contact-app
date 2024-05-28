@@ -1,6 +1,6 @@
 const express = require('express')
 const expressLayouts = require('express-ejs-layouts');
-const { loadContact, findContact, addContact, checkDuplicate } = require('./utils/contact');
+const { loadContact, findContact, addContact, checkDuplicate, deleteContact } = require('./utils/contact');
 const { validationResult, check, body } = require('express-validator');
 
 const session = require('express-session');
@@ -66,6 +66,18 @@ app.post('/contact', [
         res.redirect('/contact');
     } else {
         res.render('add-contact', { layout:'layouts/main', title: 'Contact Page', route: '/contact', err: result.array(), });
+    }
+});
+
+app.get('/contact/delete/:name', (req, res) => {
+    const contact = findContact(req.params.name);
+    if (!contact) {
+        res.status(404);
+        res.send('<h1>404 not found</h1>')
+    } else {
+        deleteContact(req.params.name);
+        req.flash('msg', 'Contact has been Deleted!')
+        res.redirect('/contact');
     }
 });
 

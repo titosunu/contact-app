@@ -1,3 +1,9 @@
-# JavaScript Daily Learning 📁
+# Express JS Contact App
 
-Selamat datang di repositori **JavaScript Daily Learning**! Repositori ini adalah tempat saya mendokumentasikan perjalanan harian saya dalam mempelajari JavaScript. Setiap hari, saya akan menambahkan catatan, kode, dan proyek kecil yang saya kerjakan.
+Welcome to the Simple Contact Management System project! This is a small and straightforward application that allows you to manage your contacts. You can add, view, delete, and update contact information easily.
+
+Features Contact Saver app 🚀 ~
+- Add Contact: Add a new contact with name, phone number, and email.
+- View Contacts: Display a list of all contacts.
+- Delete Contact: Remove a contact from the list.
+- Update Contact: Update existing contact details.
