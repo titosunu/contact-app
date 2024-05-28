@@ -7,3 +7,5 @@ Features Contact Saver app 🚀 ~
 - View Contacts: Display a list of all contacts.
 - Delete Contact: Remove a contact from the list.
 - Update Contact: Update existing contact details.
+
+![screenshot-app](https://github.com/titosunu/contact-app/blob/main/public/img/screenshot-page.png)
