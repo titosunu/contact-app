@@ -28,7 +28,7 @@ Features Contact Saver app ~
 <h3 align="left">Languages and Tools:</h3>
 <p align="left">
   <a href="https://nodejs.org/en" target="_blank" rel="noreferrer"> 
-    <img src="https://static-00.iconduck.com/assets.00/nodejs-icon-2048x2048-rueyo8fw.png" alt="go" width="40" height="40"/> 
+    <img src="https://ih1.redbubble.net/image.367014180.4385/tst,small,845x845-pad,1000x1000,f8f8f8.u3.jpg" alt="go" width="40" height="40"/> 
   </a>
   <a href="https://expressjs.com/" target="_blank" rel="noreferrer"> 
     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFRztssUmVkQcDl8a8Jd4u8mZxOjX5jydMQA&s" alt="go" width="40" height="40"/> 
